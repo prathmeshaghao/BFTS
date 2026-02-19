@@ -19,11 +19,15 @@ The system follows Ethereum’s Account-Based Model and includes core blockchain
 
 ## 🛠 Tech Stack
 
-Solidity ^0.8.x
-Hardhat
-React + Vite + TypeScript
-Ethers.js (v6)
-MetaMask
+.Solidity ^0.8.x
+
+.Hardhat
+
+.React + Vite + TypeScript
+
+.Ethers.js (v6)
+
+.MetaMask
 
 ✨ Features
 
@@ -51,16 +55,15 @@ MetaMask
 
 ## 📜 Smart Contract Functions
 
-Function Description
-deposit() - Add ETH to vault
-withdraw(uint256) - Withdraw ETH
-transferTo(address,uint256) - Internal balance transfer
-approve(address,uint256) - Grant allowance
-transferFrom(address,address,uint256) - Delegated transfer
-addAdmin(address) - Add admin
-removeAdmin(address) - Remove admin
-getBalance(address) - User vault balance
-getContractBalance() - Total vault ETH
+.deposit() - Add ETH to vault
+.withdraw(uint256) - Withdraw ETH
+.transferTo(address,uint256) - Internal balance transfer
+.approve(address,uint256) - Grant allowance
+.transferFrom(address,address,uint256) - Delegated transfer
+.addAdmin(address) - Add admin
+.removeAdmin(address) - Remove admin
+.getBalance(address) - User vault balance
+.getContractBalance() - Total vault ETH
 
 ## 🔐 Security Measures
 
@@ -84,7 +87,7 @@ These protections prevent:
 
 ## 🧠 Account Model vs UTXO Model
 
-Ethereum – Account Model
+#### Ethereum – Account Model
 
 - Ethereum uses an Account-Based Model, where balances are directly stored on-chain.
 
@@ -92,26 +95,26 @@ In this project, balances are maintained using:
 
 mapping(address => uint256) balances;
 
-Advantages:
+##### Advantages:
 
 .Simple balance tracking
 .Efficient smart contract integration
 .Fast state updates
 .Easier role & approval logic
 
-Bitcoin – UTXO Model
+#### Bitcoin – UTXO Model
 
 - Bitcoin uses a UTXO (Unspent Transaction Output) model.
 
 Instead of balances, the system tracks individual transaction outputs.
 
-Advantages:
+##### Advantages:
 
 .Higher privacy
 .Parallel transaction validation
 .Explicit transaction flow
 
-Why Account Model Was Used
+#### Why Account Model Was Used
 
 This Wallet DApp includes:
 
@@ -193,14 +196,19 @@ npm run dev
 Open MetaMask → Add Network → Manual Configuration:
 
 .Network Name: Hardhat Local
+
 .RPC URL: http://127.0.0.1:8545
+
 .Chain ID: 31337
+
 .Currency Symbol: ETH
+
 .Block Explorer URL: (leave empty)
 
 After adding:
 
 .Import one of the private keys shown in the Hardhat terminal
+
 .Use that account to interact with the DApp
 
 ## 📸 Screenshots
