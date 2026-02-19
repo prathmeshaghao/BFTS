@@ -240,3 +240,7 @@ After adding:
 ### Admin Panel
 
 ![Admin](screenshots/adminadded.jpeg)
+
+### Transaction Logs
+
+![Logs](screenshots/logsui.jpeg)
