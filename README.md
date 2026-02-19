@@ -1,127 +1,144 @@
-Wallet DApp – Blockchain based Fund Transfer System
-
-Overview ==========================================================
+# 🚀 Wallet DApp – Blockchain-Based Fund Transfer System
 
 A decentralized wallet application built using Solidity, Hardhat, React, and Ethers.js.
-Supports deposits, withdrawals, transfers, approval logic, admin roles, and transaction logs.
 
-Tech Stack ========================================================
+This project implements a secure on-chain vault system supporting deposits, withdrawals, transfers, delegated approvals, admin role management, and real-time transaction logs.
 
-- Solidity ^0.8.x
-- Hardhat
-- React + Vite + TypeScript
-- Ethersjs
-- MetaMask
+## 📌 Overview
 
-Features ============================================================
+This DApp simulates a blockchain-based fund transfer system where:
+Users deposit ETH into a smart contract vault
+Withdraw ETH securely
+Transfer internally between users
+Grant spending approval to other users
+Manage admin roles (owner-controlled)
+View transaction logs
+The system follows Ethereum’s Account-Based Model and includes core blockchain security practices.
 
-- Wallet Connection (MetaMask)
-- Deposit ETH into Vault
-- Withdraw ETH
-- Transfer Between Users
-- Approval & Allowance Logic
-- Admin Role Management
-- Transaction Event Logs
-- Reentrancy Protection
-- Logout / Session Control
-- Network Detection
-- Auto Balance Updates
+## 🛠 Tech Stack
 
-Smart Contract Functions ==================================================
+Solidity ^0.8.x
+Hardhat
+React + Vite + TypeScript
+Ethers.js (v6)
+MetaMask
 
-deposit - Add ETH to vault
-withdraw - Withdraw ETH
-transfer - To Internal transfer
-approve - Grant allowance
-addAdmin - Add admin
-getBalance - User vault balance
-getContractBalance - Total vault ETH
+✨ Features
 
-Security Measures ========================================================
+🔐 Wallet Connection (MetaMask)
 
-- Reentrancy Guard
-- Access Control (onlyOwner)
-- Input Validation
-- Safe ETH Transfer using .call
+💰 Deposit ETH into Vault
 
-How To Run ================================================================
+💸 Withdraw ETH
 
-Backend
+🔄 Internal Transfers
 
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat run scripts/deploy.ts --network localhost
+🧾 Approval & Allowance Logic
 
-Frontend
+👑 Admin Role Management
 
-cd frontend
-npm install
-npm run dev
+📜 Transaction Event Logs
 
-Account Model vs UTXO ======================================================
+🛡 Reentrancy Protection
 
-- Ethereum - Account Model
+🔎 Network Detection
 
-Ethereum uses an Account-Based Model, where each wallet address has a direct balance stored on the blockchain.
-Transactions simply increase or decrease the balance of accounts.
+🔄 Auto Balance Updates
 
-Advantages -
+🚪 Logout / Session Control
 
-.Simple balance tracking
-.Easy smart contract integration
-.Efficient state updates
+## 📜 Smart Contract Functions
 
-In this project, the wallet vault uses an account model by storing balances in:
+Function Description
+deposit() Add ETH to vault
+withdraw(uint256) Withdraw ETH
+transferTo(address,uint256) Internal balance transfer
+approve(address,uint256) Grant allowance
+transferFrom(address,address,uint256) Delegated transfer
+addAdmin(address) Add admin
+removeAdmin(address) Remove admin
+getBalance(address) User vault balance
+getContractBalance() Total vault ETH
 
-mapping(address => uint256) balances;
-
-This allows fast lookup and controlled transfers inside the smart contract.
-
-- Bitcoin - UTXO Model
-
-Bitcoin uses a UTXO (Unspent Transaction Output) Model.
-Instead of balances, the system tracks individual transaction outputs that are either spent or unspent.
-
-Advantages -
-
-.Higher privacy
-.Parallel transaction validation
-.Clear transaction history
-
-Conclusion - Why & Which Account Model Was Used ============================
-
-This wallet DApp involves:
-
-- Role management
-- Internal transfers
-- Approval logic
-- Admin authorization
-- Vault balance tracking
-
-These features are much easier and cleaner using an Account Model rather than managing UTXOs.
-
-Security Considerations ====================================================
+## 🔐 Security Measures
 
 This project implements several blockchain security best practices:
 
-- Reentrancy Guard using locked boolean
-- Access Control via onlyOwner and onlyAdmin
-- Input Validation for addresses and amounts
-- Safe ETH Transfers using .call
-- Event Logging for auditability
-- Separation of Wallet ETH vs Vault ETH
-- Approval Limits to prevent unauthorized spending
-- Frontend Address Validation (ethers.isAddress)
+Reentrancy Guard (locked modifier)
 
-These measures help prevent:
+Access Control (onlyOwner, onlyAdmin)
 
-- Reentrancy attacks
-- Unauthorized admin access
-- Invalid transactions
-- Double spending logic issues
+Input validation (address & amount checks)
 
-Smart Contract Logic =================================================================
+Safe ETH transfers using .call
+
+Event logging for auditability
+
+Separation of Wallet ETH vs Vault ETH
+
+Allowance reduction after delegated transfer
+
+Frontend address validation (ethers.isAddress())
+
+These protections prevent:
+
+Reentrancy attacks
+
+Unauthorized admin access
+
+Invalid transactions
+
+Double-spending logic issues
+
+## 🧠 Account Model vs UTXO Model
+
+Ethereum – Account Model
+
+Ethereum uses an Account-Based Model, where balances are directly stored on-chain.
+
+In this project, balances are maintained using:
+
+mapping(address => uint256) balances;
+
+Advantages:
+
+Simple balance tracking
+
+Efficient smart contract integration
+
+Fast state updates
+
+Easier role & approval logic
+
+Bitcoin – UTXO Model
+
+Bitcoin uses a UTXO (Unspent Transaction Output) model.
+
+Instead of balances, the system tracks individual transaction outputs.
+
+Advantages:
+
+Higher privacy
+
+Parallel transaction validation
+
+Explicit transaction flow
+
+Why Account Model Was Used
+
+This Wallet DApp includes:
+
+Role-based access control
+
+Internal transfers
+
+Delegated approvals
+
+Vault balance tracking
+
+These features are significantly simpler and cleaner using the Account Model.
+
+## ⚙️ Smart Contract Architecture
 
 The Wallet.sol contract acts as a secure on-chain vault system.
 
@@ -130,75 +147,94 @@ mapping(address => uint256) balances;
 mapping(address => bool) admins;
 mapping(address => mapping(address => uint256)) allowances;
 
-.balances stores each user’s deposited ETH.
-.admins manages role-based access.
-.allowances implements approval logic similar to ERC20.
-
-1. Deposit Logic
-
-Users deposit ETH into the contract using:
-
+1️⃣ Deposit Logic
 function deposit() public payable
 
--Validates non-zero amount
--Updates internal balance mapping
--Emits Deposit event
+Validates non-zero value
 
-2. Withdraw Logic
+Updates internal ledger
 
+Emits Deposit event
+
+2️⃣ Withdraw Logic
 function withdraw(uint256 amount)
 
--Checks sufficient internal balance
--Uses .call for safe ETH transfer
--Protected by noReentrant modifier
+Checks internal balance
+
+Uses .call for safe ETH transfer
+
+Protected by reentrancy guard
 
 Emits Withdraw event
 
-3. Transfer Logic
-
+3️⃣ Transfer Logic
 function transferTo(address to, uint256 amount)
 
--Transfers balance internally between users
--Prevents zero address transfers
--Emits Transfer event
+Internal balance transfer
 
-4. Approval Logic
+Prevents zero address
 
+Emits Transfer event
+
+4️⃣ Approval Logic
 function approve(address spender, uint256 amount)
 function transferFrom(address from, address to, uint256 amount)
 
--Enables delegated transfers
--Restricts spending based on allowance
--Reduces allowance after transfer
+Enables delegated transfers
 
-5. Access Control
+Restricts spending via allowance
 
+Reduces allowance after transfer
+
+5️⃣ Access Control
 modifier onlyOwner
 modifier onlyAdmin
 
--Owner can manage admin roles
--Ensures controlled permission system
+Owner manages admin roles
 
-Add Hardhat Network to MetaMask =======================================================
+Controlled permission system
+
+🚀 How To Run
+Backend (Hardhat)
+npm install
+npx hardhat node
+npx hardhat compile
+npx hardhat run scripts/deploy.ts --network localhost
+
+Frontend
+cd frontend
+npm install
+npm run dev
+
+## 🌐 Add Hardhat Network to MetaMask
 
 Open MetaMask → Add Network → Manual Configuration:
 
-- Network Name: Hardhat Local
-- RPC URL: http://127.0.0.1:8545
-- Chain ID: 31337
-- Currency Symbol: ETH
-- Block Explorer URL: (leave empty)
+Network Name: Hardhat Local
+
+RPC URL: http://127.0.0.1:8545
+
+Chain ID: 31337
+
+Currency Symbol: ETH
+
+Block Explorer URL: (leave empty)
 
 After adding:
 
-.Import one of the private keys shown in the Hardhat terminal.
-.Use that account to interact with the DApp.
+Import one of the private keys shown in the Hardhat terminal
 
-Screenshots =================================================================
+Use that account to interact with the DApp
+
+📸 Screenshots
 
 ## UI Screens
 
 ### Main Dashboard
+
+### Architecture
+
+![Architecture Diagram](screenshots/architecture.png)
 
 ![Dashboard](screenshots/dashui.jpeg)
 
@@ -219,7 +255,3 @@ Screenshots =================================================================
 ### Admin Panel
 
 ![Admin](screenshots/adminadded.jpeg)
-
-## Architecture
-
-![Architecture Diagram](screenshots/architecture.png)
