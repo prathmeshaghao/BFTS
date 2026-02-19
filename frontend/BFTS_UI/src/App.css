@@ -221,6 +221,12 @@ body,
 .btn-blue {
   background: #2563eb;
 }
+
+.btn-red {
+  background-color: #ff4d4f;
+  color: white;
+}
+
 /* -------------------------------------------------
    DIVIDER
 -------------------------------------------------- */
@@ -302,4 +308,17 @@ body,
   margin-bottom: 20px;
   font-weight: 700;
   letter-spacing: 0.5px;
+}
+.admin-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-row .input-field {
+  flex: 2;
+}
+
+.admin-row .btn {
+  flex: 1;
 }

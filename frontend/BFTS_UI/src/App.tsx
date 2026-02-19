@@ -332,6 +332,33 @@ function App() {
       setLoading(false);
     }
   };
+
+  // ------------------------------------------------------------------
+  // REMOVE ADMIN (OWNER ONLY)
+  // ------------------------------------------------------------------
+
+  const removeAdminUI = async () => {
+    if (!contract) return alert("Connect wallet first");
+
+    if (!ethers.isAddress(adminAddr)) return alert("Invalid admin address");
+
+    try {
+      setLoading(true);
+
+      const tx = await contract.removeAdmin(adminAddr);
+      await tx.wait();
+
+      await loadLogs();
+
+      alert("Admin removed successfully!");
+    } catch (error) {
+      console.error("Remove admin failed:", error);
+      alert("Transaction failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // ------------------------------------------------------------------
   // TO REFRESH VAULT BALANCEE
   // ------------------------------------------------------------------
@@ -357,12 +384,14 @@ function App() {
       }
 
       // Reset application state
+      setAdminAddr("");
       setAccount("");
       setBalance("0");
       setLogs([]);
       setContract(null);
       setProvider(null);
       setSigner(null);
+      setIsAdmin(false);
 
       alert("Wallet disconnected");
     } catch (error) {
@@ -505,21 +534,32 @@ function App() {
           </div>
 
           {/* ---------------- ADMIN PANEL ---------------- */}
+
           {isAdmin && (
             <div className="section">
               <h4>Admin Panel</h4>
-              <div className="form-grid">
+              <div className="admin-row">
                 <input
                   className="input-field"
-                  placeholder="New Admin Address"
+                  placeholder="Admin Address"
+                  value={adminAddr}
                   onChange={(e) => setAdminAddr(e.target.value)}
                 />
+
                 <button
                   onClick={addAdminUI}
                   className="btn btn-blue"
                   disabled={loading}
                 >
-                  Add Admin
+                  Add
+                </button>
+
+                <button
+                  onClick={removeAdminUI}
+                  className="btn btn-red"
+                  disabled={loading}
+                >
+                  Remove
                 </button>
               </div>
             </div>
