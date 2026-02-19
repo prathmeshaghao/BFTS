@@ -8,26 +8,22 @@ This project implements a secure on-chain vault system supporting deposits, with
 
 This DApp simulates a blockchain-based fund transfer system where:
 
-.Users deposit ETH into a smart contract vault
-.Withdraw ETH securely
-.Transfer internally between users
-.Grant spending approval to other users
-.Manage admin roles (owner-controlled)
-.View transaction logs
+- Users deposit ETH into a smart contract vault
+- Withdraw ETH securely
+- Transfer internally between users
+- Grant spending approval to other users
+- Manage admin roles (owner-controlled)
+- View transaction logs
 
 The system follows Ethereum’s Account-Based Model and includes core blockchain security practices.
 
 ## 🛠 Tech Stack
 
-.Solidity ^0.8.x
-
-.Hardhat
-
-.React + Vite + TypeScript
-
-.Ethers.js (v6)
-
-.MetaMask
+- Solidity ^0.8.x
+- Hardhat
+- React + Vite + TypeScript
+- Ethers.js (v6)
+- MetaMask
 
 ✨ Features
 
@@ -55,15 +51,16 @@ The system follows Ethereum’s Account-Based Model and includes core blockchain
 
 ## 📜 Smart Contract Functions
 
-.deposit() - Add ETH to vault
-.withdraw(uint256) - Withdraw ETH
-.transferTo(address,uint256) - Internal balance transfer
-.approve(address,uint256) - Grant allowance
-.transferFrom(address,address,uint256) - Delegated transfer
-.addAdmin(address) - Add admin
-.removeAdmin(address) - Remove admin
-.getBalance(address) - User vault balance
-.getContractBalance() - Total vault ETH
+- deposit() – Add ETH to vault
+- withdraw(uint256) – Withdraw ETH
+- transferTo(address,uint256) – Internal balance transfer
+- approve(address,uint256) – Grant allowance
+- transferFrom(address,address,uint256) – Delegated transfer
+- addAdmin(address) – Add admin
+- removeAdmin(address) – Remove admin
+- getBalance(address) – User vault balance
+- getContractBalance() – Total vault ETH
+
 
 ## 🔐 Security Measures
 
@@ -87,7 +84,7 @@ These protections prevent:
 
 ## 🧠 Account Model vs UTXO Model
 
-#### Ethereum – Account Model
+### Ethereum – Account Model
 
 - Ethereum uses an Account-Based Model, where balances are directly stored on-chain.
 
@@ -95,33 +92,33 @@ In this project, balances are maintained using:
 
 mapping(address => uint256) balances;
 
-##### Advantages:
+#### Advantages:
 
-.Simple balance tracking
-.Efficient smart contract integration
-.Fast state updates
-.Easier role & approval logic
+- Simple balance tracking
+- Efficient smart contract integration
+- Fast state updates
+- Easier role & approval logic
 
-#### Bitcoin – UTXO Model
+### Bitcoin – UTXO Model
 
 - Bitcoin uses a UTXO (Unspent Transaction Output) model.
 
 Instead of balances, the system tracks individual transaction outputs.
 
-##### Advantages:
+#### Advantages:
 
-.Higher privacy
-.Parallel transaction validation
-.Explicit transaction flow
+- Higher privacy
+- Parallel transaction validation
+- Explicit transaction flow
 
-#### Why Account Model Was Used
+### Why Account Model Was Used
 
 This Wallet DApp includes:
 
-.Role-based access control
-.Internal transfers
-.Delegated approvals
-.Vault balance tracking
+- Role-based access control
+- Internal transfers
+- Delegated approvals
+- Vault balance tracking
 
 These features are significantly simpler and cleaner using the Account Model.
 
@@ -138,17 +135,17 @@ mapping(address => mapping(address => uint256)) allowances;
 
 function deposit() public payable
 
--Validates non-zero value
--Updates internal ledger
--Emits Deposit event
+- Validates non-zero value
+- Updates internal ledger
+- Emits Deposit event
 
 2️⃣ Withdraw Logic
 
 function withdraw(uint256 amount)
 
--Checks internal balance
--Uses .call for safe ETH transfer
--Protected by reentrancy guard
+- Checks internal balance
+- Uses .call for safe ETH transfer
+- Protected by reentrancy guard
 
 Emits Withdraw event
 
@@ -156,60 +153,55 @@ Emits Withdraw event
 
 function transferTo(address to, uint256 amount)
 
--Internal balance transfer
--Prevents zero address
--Emits Transfer event
+- Internal balance transfer
+- Prevents zero address
+- Emits Transfer event
 
 4️⃣ Approval Logic
 
 function approve(address spender, uint256 amount)
 function transferFrom(address from, address to, uint256 amount)
 
--Enables delegated transfers
--Restricts spending via allowance
--Reduces allowance after transfer
+- Enables delegated transfers
+- Restricts spending via allowance
+- Reduces allowance after transfer
 
 5️⃣ Access Control
 modifier onlyOwner
 modifier onlyAdmin
 
--Owner manages admin roles
--Controlled permission system
+- Owner manages admin roles
+- Controlled permission system
 
 ## 🚀 How To Run
 
 Backend (Hardhat)
 
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat run scripts/deploy.ts --network localhost
+- npm install
+- npx hardhat node (In 1st terminal)
+- npx hardhat compile
+- npx hardhat run scripts/deploy.ts --network localhost (In 2nd terminal)
 
 Frontend
 
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev (In 3rd terminal)
 
 ## 🌐 Add Hardhat Network to MetaMask
 
 Open MetaMask → Add Network → Manual Configuration:
 
-.Network Name: Hardhat Local
-
-.RPC URL: http://127.0.0.1:8545
-
-.Chain ID: 31337
-
-.Currency Symbol: ETH
-
-.Block Explorer URL: (leave empty)
+- Network Name: Hardhat Local
+- RPC URL: http://127.0.0.1:8545
+- Chain ID: 31337
+- Currency Symbol: ETH
+- Block Explorer URL: (leave empty)
 
 After adding:
 
-.Import one of the private keys shown in the Hardhat terminal
-
-.Use that account to interact with the DApp
+- Import one of the private keys shown in the Hardhat terminal
+- Use that account to interact with the DApp
 
 ## 📸 Screenshots
 
