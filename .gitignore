@@ -1,0 +1,57 @@
+# --------------------------------------------------
+# NODE / FRONTEND
+# --------------------------------------------------
+
+# Installed dependencies
+node_modules/
+
+# Environment variables (private keys, RPC URLs, etc.)
+.env
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# --------------------------------------------------
+# HARDHAT / BLOCKCHAIN
+# --------------------------------------------------
+
+# Compiled contract artifacts
+artifacts/
+
+# Hardhat cache
+cache/
+
+# Local Hardhat deployment data (chain 31337)
+ignition/deployments/chain-31337/
+
+# TypeChain generated types
+typechain/
+typechain-types/
+
+# Solidity coverage reports
+coverage/
+coverage.json
+
+# --------------------------------------------------
+# OS / EDITOR FILES
+# --------------------------------------------------
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Misc
+*.swp
+*.tmp
