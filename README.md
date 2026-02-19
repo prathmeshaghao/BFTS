@@ -19,15 +19,11 @@ The system follows Ethereum’s Account-Based Model and includes core blockchain
 
 ## 🛠 Tech Stack
 
--Solidity ^0.8.x
-
--Hardhat
-
--React + Vite + TypeScript
-
--Ethers.js (v6)
-
--MetaMask
+- Solidity ^0.8.x
+- Hardhat
+- React + Vite + TypeScript
+- Ethers.js (v6)
+- MetaMask
 
 ✨ Features
 
@@ -181,36 +177,31 @@ modifier onlyAdmin
 
 Backend (Hardhat)
 
-npm install
-npx hardhat node
-npx hardhat compile
-npx hardhat run scripts/deploy.ts --network localhost
+- npm install
+- npx hardhat node (In 1st terminal)
+- npx hardhat compile
+- npx hardhat run scripts/deploy.ts --network localhost (In 2nd terminal)
 
 Frontend
 
-cd frontend
-npm install
-npm run dev
+- cd frontend
+- npm install
+- npm run dev (In 3rd terminal)
 
 ## 🌐 Add Hardhat Network to MetaMask
 
 Open MetaMask → Add Network → Manual Configuration:
 
--Network Name: Hardhat Local
-
--RPC URL: http://127.0.0.1:8545
-
--Chain ID: 31337
-
--Currency Symbol: ETH
-
--Block Explorer URL: (leave empty)
+- Network Name: Hardhat Local
+- RPC URL: http://127.0.0.1:8545
+- Chain ID: 31337
+- Currency Symbol: ETH
+- Block Explorer URL: (leave empty)
 
 After adding:
 
--Import one of the private keys shown in the Hardhat terminal
-
--Use that account to interact with the DApp
+- Import one of the private keys shown in the Hardhat terminal
+- Use that account to interact with the DApp
 
 ## 📸 Screenshots
 
