@@ -61,7 +61,6 @@ The system follows Ethereum’s Account-Based Model and includes core blockchain
 - getBalance(address) – User vault balance
 - getContractBalance() – Total vault ETH
 
-
 ## 🔐 Security Measures
 
 This project implements several blockchain security best practices:
