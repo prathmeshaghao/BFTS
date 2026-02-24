@@ -1,4 +1,4 @@
-# 🚀 Wallet DApp – Blockchain-Based Fund Transfer System
+# 🚀 Block-Funding Dapp – Blockchain-Based Fund Transfer System
 
 A decentralized wallet application built using Solidity, Hardhat, React, and Ethers.js.
 
