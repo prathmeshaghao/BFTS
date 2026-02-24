@@ -4,7 +4,7 @@ import walletAbi from "./contracts/walletAbi.json";
 import "./App.css";
 
 // Deployed contract address (Hardhat local network)
-const CONTRACT_ADDRESS = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+const CONTRACT_ADDRESS = "0x701080098C9Bd20A98237739344e555c19CB8310";
 
 // Extend Window interface for TypeScript
 declare global {
@@ -20,7 +20,7 @@ function App() {
 
   // Core blockchain objects
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
-  const [signer, setSigner] = useState<ethers.Signer | null>(null);
+  const [_signer, setSigner] = useState<ethers.Signer | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
   // Wallet + account state
@@ -96,8 +96,8 @@ function App() {
 
     // Request wallet permissions
     await window.ethereum.request({
-      method: "wallet_requestPermissions",
-      params: [{ eth_accounts: {} }],
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: "0xaa36a7" }],
     });
 
     const prov = new ethers.BrowserProvider(window.ethereum);
@@ -142,15 +142,36 @@ function App() {
     const prov = new ethers.BrowserProvider(window.ethereum);
     const cont = new ethers.Contract(CONTRACT_ADDRESS, walletAbi, prov);
 
-    // Query all major events
-    const deposits = await cont.queryFilter("Deposit");
-    const withdraws = await cont.queryFilter("Withdraw");
-    const transfers = await cont.queryFilter("Transfer");
-    const approvals = await cont.queryFilter("Approval");
-    const adminAdds = await cont.queryFilter("AdminAdded");
-    const adminRems = await cont.queryFilter("AdminRemoved");
+    const currentBlock = await prov.getBlockNumber();
+    const fromBlock = currentBlock - 200;
 
-    // Merge and sort by block (descending)
+    const deposits = await cont.queryFilter("Deposit", fromBlock, currentBlock);
+    const withdraws = await cont.queryFilter(
+      "Withdraw",
+      fromBlock,
+      currentBlock,
+    );
+    const transfers = await cont.queryFilter(
+      "Transfer",
+      fromBlock,
+      currentBlock,
+    );
+    const approvals = await cont.queryFilter(
+      "Approval",
+      fromBlock,
+      currentBlock,
+    );
+    const adminAdds = await cont.queryFilter(
+      "AdminAdded",
+      fromBlock,
+      currentBlock,
+    );
+    const adminRems = await cont.queryFilter(
+      "AdminRemoved",
+      fromBlock,
+      currentBlock,
+    );
+
     const allEvents = [
       ...deposits,
       ...withdraws,
