@@ -423,7 +423,7 @@ function App() {
   return (
     <div className="app-container">
       <div className="wallet-card">
-        <h2 className="app-title">Wallet DApp</h2>
+        <h2 className="app-title"> Block-Funds </h2>
 
         <div className="card-content">
           {/* Top Action Button */}
